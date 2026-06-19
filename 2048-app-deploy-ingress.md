@@ -1,0 +1,40 @@
+# 2048 App Deployment on Amazon EKS using Kubernetes Ingress
+
+## Overview
+
+This project demonstrates deploying the 2048 game application on an Amazon EKS cluster using Kubernetes resources and AWS Application Load Balancer (ALB).
+
+## Architecture
+
+User  
+↓  
+AWS Application Load Balancer  
+↓  
+Kubernetes Ingress  
+↓  
+Kubernetes Service  
+↓  
+Application Pods
+
+
+## 1. Create Fargate Profile
+
+Created a Fargate profile for the application namespace:
+
+```bash
+eksctl create fargateprofile \
+    --cluster demo-cluster \
+    --region us-east-1 \
+    --name alb-sample-app \
+    --namespace game-2048
+
+
+```
+
+## Deploy the deployment, service and Ingress
+
+```
+
+kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/v2.5.4/docs/examples/2048/2048_full.yaml
+
+```
